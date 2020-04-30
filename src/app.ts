@@ -3,13 +3,12 @@ import morgan from 'morgan';
 import exphbs from 'express-handlebars'
 import path from 'path';
 import indexRoutes from './routes'
-import taskRoutes from './routes/task'
+import taskRoutes from './routes/TaskRouter'
 
 class Application {
     app: express.Application;
 
-    constructor(){
-        
+    constructor(){        
         this.app = express();
         this.settings();
         this.middlewares();
