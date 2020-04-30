@@ -1,6 +1,12 @@
+import { Schema, model, Document } from 'mongoose';
 
-import { Schema, model } from 'mongoose';
+//Defines Class Properties
+interface TaskInterface extends Document{
+    title: String
+    description: String;
+}
 
+//Define DATABASE format
 const TaskSchema = new Schema({
     title:{
         type: String,
@@ -15,4 +21,4 @@ const TaskSchema = new Schema({
     }
 });
 
-export default model('Task', TaskSchema);
+export default model<TaskInterface>('Task', TaskSchema);

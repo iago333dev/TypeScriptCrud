@@ -19,8 +19,7 @@ class TaskController{
     //Get All task in databse
     public async GetTask(req: Request, res: Response){
         const tasks = await Task.find();
-        console.log(tasks);
-        res.render('task/list', { tasks });      
+        res.render('task/list', { tasks });              
     }
 
     //Delete Task by id
