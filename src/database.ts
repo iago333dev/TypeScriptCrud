@@ -1,10 +1,11 @@
-
 import mongoose from 'mongoose';
+import config from './config/config';
 
 async function connect(){
     try{
-        await mongoose.connect('mongodb://localhost/ietzz',{
-            useNewUrlParser: true
+        await mongoose.connect(config.DB.URI,{
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         });
         console.log('Database Connected')
     }catch{

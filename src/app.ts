@@ -3,7 +3,11 @@ import morgan from 'morgan';
 import exphbs from 'express-handlebars'
 import path from 'path';
 import indexRoutes from './routes'
-import taskRoutes from './routes/TaskRouter'
+//Sys Routers
+import taskRoutes from './routes/sys/TaskRouter'
+//Api Routers
+import taskRoutesAPI from './routes/api/TaskRouterAPI'
+import cors from 'cors';
 
 class Application {
     app: express.Application;
@@ -37,11 +41,15 @@ class Application {
         this.app.use(morgan('dev'));
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
+        this.app.use(cors());
     }
 
     routes(){
         this.app.use(indexRoutes);
-        this.app.use('/task',taskRoutes);        
+        //Sys Router
+        this.app.use('/task',taskRoutes);   
+        //API Router
+        this.app.use('/api/task',taskRoutesAPI);      
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
 

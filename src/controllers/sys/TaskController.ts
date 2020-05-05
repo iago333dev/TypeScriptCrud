@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import Task from '../models/TaskModel';
+import Task from '../../models/TaskModel';
 
 class TaskController{
     //Render Form for Create a new Task
@@ -16,7 +16,7 @@ class TaskController{
         res.redirect('list');      
     }
 
-    //Get All task in databse
+    //Get All task in database
     public async GetTask(req: Request, res: Response){
         const tasks = await Task.find();
         res.render('task/list', { tasks });              
