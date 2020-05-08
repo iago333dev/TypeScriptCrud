@@ -7,6 +7,7 @@ import indexRoutes from './routes'
 import taskRoutes from './routes/sys/TaskRouter'
 //Api Routers
 import taskRoutesAPI from './routes/api/TaskRouterAPI'
+import authRoutesAPI from './routes/api/AuthRouterAPI'
 import cors from 'cors';
 
 class Application {
@@ -50,6 +51,7 @@ class Application {
         this.app.use('/task',taskRoutes);   
         //API Router
         this.app.use('/api/task',taskRoutesAPI);      
+        this.app.use('/api/auth',authRoutesAPI);  
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
 

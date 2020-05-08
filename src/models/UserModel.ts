@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 export interface UserInterface extends Document {
     email: String,
     password: String
+    comparePassword: (password:string) => Promise<boolean>
 
 }
 
