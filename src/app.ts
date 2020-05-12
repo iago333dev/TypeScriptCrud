@@ -8,7 +8,11 @@ import taskRoutes from './routes/sys/TaskRouter'
 //Api Routers
 import taskRoutesAPI from './routes/api/TaskRouterAPI'
 import authRoutesAPI from './routes/api/AuthRouterAPI'
+import specialRoutesAPI from './routes/api/SpecialRouterAPI';
+
 import cors from 'cors';
+import passportMiddleware from "./middlewares/passport";
+import passport from 'passport';
 
 class Application {
     app: express.Application;
@@ -43,6 +47,8 @@ class Application {
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(cors());
+        this.app.use(passport.initialize());
+        passport.use(passportMiddleware);
     }
 
     routes(){
@@ -52,6 +58,8 @@ class Application {
         //API Router
         this.app.use('/api/task',taskRoutesAPI);      
         this.app.use('/api/auth',authRoutesAPI);  
+        this.app.use(specialRoutesAPI);  
+
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
 

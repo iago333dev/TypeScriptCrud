@@ -63,7 +63,7 @@ export const signIn = async (req: Request, res: Response) => {
     //Check password
     const ismatch = await user.comparePassword(req.body.password);
 
-    //If its match create a token 
+    //create a token 
     if (ismatch){        
         return res.status(200).json({
             token: CreateToken(user)
