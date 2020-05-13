@@ -55,4 +55,4 @@ class TaskControllerAPI{
     }   
 }
 
-export default  new TaskControllerAPI();
+export default new TaskControllerAPI();

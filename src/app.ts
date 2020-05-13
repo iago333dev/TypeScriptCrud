@@ -3,8 +3,14 @@ import morgan from 'morgan';
 import exphbs from 'express-handlebars'
 import path from 'path';
 import indexRoutes from './routes'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+
+
+
 //Sys Routers
 import taskRoutes from './routes/sys/TaskRouter'
+import AuthRoutes from './routes/sys/AuthRouter'
 //Api Routers
 import taskRoutesAPI from './routes/api/TaskRouterAPI'
 import authRoutesAPI from './routes/api/AuthRouterAPI'
@@ -49,12 +55,18 @@ class Application {
         this.app.use(cors());
         this.app.use(passport.initialize());
         passport.use(passportMiddleware);
+        
+        this.app.use(cookieParser('secret'));
+        // this.app.use(session({cookie: {maxAge: null}}))        
+        
+
     }
 
-    routes(){
-        this.app.use(indexRoutes);
+    routes(){        
         //Sys Router
         this.app.use('/task',taskRoutes);   
+        this.app.use('/',AuthRoutes); 
+        this.app.use(indexRoutes);
         //API Router
         this.app.use('/api/task',taskRoutesAPI);      
         this.app.use('/api/auth',authRoutesAPI);  
