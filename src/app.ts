@@ -4,9 +4,6 @@ import exphbs from 'express-handlebars'
 import path from 'path';
 import indexRoutes from './routes'
 import bodyParser from 'body-parser'
-import cookieParser from 'cookie-parser'
-
-
 
 //Sys Routers
 import taskRoutes from './routes/sys/TaskRouter'
@@ -56,7 +53,6 @@ class Application {
         this.app.use(passport.initialize());
         passport.use(passportMiddleware);
         
-        this.app.use(cookieParser('secret'));
         // this.app.use(session({cookie: {maxAge: null}}))        
         
 

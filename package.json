@@ -1,5 +1,5 @@
 {
-  "name": "TypeScript-CRUD",
+  "name": "typescriptcrud",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,9 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/passport-local": "^1.0.33",
     "bcrypt": "^4.0.1",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
@@ -29,12 +29,12 @@
     "ncp": "^2.0.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "rimraf": "^3.0.2",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
-    "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.6",
     "@types/express-handlebars": "^3.1.0",
