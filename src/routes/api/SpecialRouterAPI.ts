@@ -7,12 +7,13 @@ import passport from 'passport';
 const router = Router();
 
 //Router special which uses passport authenticate
-/*
-router.get('/special', passport.authenticate('jwt', { session: false }), (req,res) =>{
+
+//API ROUTE AUTHENTICATION
+router.get('/api/special', passport.authenticate('jwt', { session: false }), (req,res) =>{
     res.send('sucess');
 })
-*/
 
+//SYS ROUTE AUTHENTICATION
 router.post('/special', passport.authenticate('local-signin', { 
     successRedirect: '/',
     failureRedirect: '/signin?failure=true',

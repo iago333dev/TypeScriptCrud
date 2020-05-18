@@ -41,7 +41,9 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
     //Return user object
     return res.status(201).json(NewUser);
 }
-
+/*==========================================
+            LOGIN /api/auth/signin
+===========================================*/
 export const signIn = async (req: Request, res: Response) => {
     //check if exist email and password fields on request
     if(!req.body.email || !req.body.password){

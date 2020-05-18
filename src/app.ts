@@ -17,7 +17,7 @@ import authRoutesAPI from './routes/api/AuthRouterAPI'
 import specialRoutesAPI from './routes/api/SpecialRouterAPI';
 
 import cors from 'cors';
-//import passportMiddleware from "./middlewares/passport";
+import passportMiddlewareAPI from "./middlewares/passport";
 import passportMiddleware from "./middlewares/passportlocal";
 import passport from 'passport';
 
@@ -28,8 +28,7 @@ class Application {
         this.app = express();
         this.settings();
         this.middlewares();
-        this.routes();
-        
+        this.routes();        
     }
 
     start(){
@@ -58,7 +57,7 @@ class Application {
 
         this.app.use(passport.initialize());        
         passport.use('local-signin',passportMiddleware);
-
+        passport.use('jwt',passportMiddlewareAPI);
 
         //Local passport        
         this.app.use(session({
@@ -70,21 +69,13 @@ class Application {
         this.app.use(flash());
         this.app.use((req,res,next) => {
 
-            //res.locals.message = req.flash('message');           
+           //res.locals.message = req.flash('message');           
            // this.app.locals.signupMessage = req.flash('signupMessage');
            // this.app.locals.user = req.user;
-            //console.log(res.locals.message);
+           //console.log(res.locals.message);
             next()
         })
-
-        
-        
-        
-
-        
         //<:> this.app.use(session({cookie: {maxAge: null}}))        
-        
-
     }
 
     routes(){        
@@ -94,12 +85,13 @@ class Application {
         this.app.use(indexRoutes);
         //API Router
         this.app.use('/api/task',taskRoutesAPI);      
-        this.app.use('/api/auth',authRoutesAPI);  
+        this.app.use('/api/auth',authRoutesAPI);
+        
+        //SPECIALS ROUTERS ONLY FOR TEST
         this.app.use(specialRoutesAPI);  
 
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
-
 }
 
 export default Application;
