@@ -3,7 +3,10 @@ import morgan from 'morgan';
 import exphbs from 'express-handlebars'
 import path from 'path';
 import indexRoutes from './routes'
-import bodyParser from 'body-parser'
+
+
+import session from 'express-session'
+import flash from 'connect-flash'
 
 //Sys Routers
 import taskRoutes from './routes/sys/TaskRouter'
@@ -14,7 +17,8 @@ import authRoutesAPI from './routes/api/AuthRouterAPI'
 import specialRoutesAPI from './routes/api/SpecialRouterAPI';
 
 import cors from 'cors';
-import passportMiddleware from "./middlewares/passport";
+//import passportMiddleware from "./middlewares/passport";
+import passportMiddleware from "./middlewares/passportlocal";
 import passport from 'passport';
 
 class Application {
@@ -25,6 +29,7 @@ class Application {
         this.settings();
         this.middlewares();
         this.routes();
+        
     }
 
     start(){
@@ -50,10 +55,34 @@ class Application {
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(cors());
-        this.app.use(passport.initialize());
-        passport.use(passportMiddleware);
+
+        this.app.use(passport.initialize());        
+        passport.use('local-signin',passportMiddleware);
+
+
+        //Local passport        
+        this.app.use(session({
+            secret: 'mysecreatsession',
+            resave: false,
+            saveUninitialized: false
+        }));
+        this.app.use(passport.session());
+        this.app.use(flash());
+        this.app.use((req,res,next) => {
+
+            //res.locals.message = req.flash('message');           
+           // this.app.locals.signupMessage = req.flash('signupMessage');
+           // this.app.locals.user = req.user;
+            //console.log(res.locals.message);
+            next()
+        })
+
         
-        // this.app.use(session({cookie: {maxAge: null}}))        
+        
+        
+
+        
+        //<:> this.app.use(session({cookie: {maxAge: null}}))        
         
 
     }
@@ -74,3 +103,4 @@ class Application {
 }
 
 export default Application;
+

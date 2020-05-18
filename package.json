@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/connect-flash": "0.0.35",
     "@types/passport-local": "^1.0.33",
     "bcrypt": "^4.0.1",
     "connect-flash": "^0.1.1",

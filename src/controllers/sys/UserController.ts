@@ -1,11 +1,43 @@
-import { Request, Response } from 'express';
-import User from '../../models/UserModel';
+import {Request, Response} from 'express';
+import User,{UserInterface} from '../../models/UserModel'; 
+import jwt from 'jsonwebtoken';
+import config from '../../config/config';
+import url from 'url'
 
-class UserController { 
+
+class UserController {
+    
+    //Create a token for loged user
+    public CreateToken(user:UserInterface){
+        return jwt.sign({id: user.id, email: user.email},config.jwtSecret, {
+            expiresIn: 86400
+        });
+    }    
 
     public signUp_get = async (req: Request, res: Response) => {
         res.render('auth/signup') 
     }
+
+    public signIn_get = async (req: Request, res: Response) => {
+
+        const mes = req.flash('message')
+        console.log(mes)
+    
+        if(req.query.failure=='true'){
+            const message = { 
+                type: 'danger',
+                intro: 'Error',
+                message: mes
+             }
+            res.render('auth/signin',{ message });
+        }else{
+            res.render('auth/signin');
+        }
+    }
+
+/*=================================================================
+                SIGIN UP POST /signup
+==================================================================*/
     
     public signUp_post = async (req: Request, res: Response) => {
         
@@ -21,6 +53,7 @@ class UserController {
             
         //Find registry which uses a same input email
         const user = await User.findOne({email: req.body.email});
+
 
         //If exist send erro message
         if(user){
@@ -43,13 +76,13 @@ class UserController {
              }
 
              res.render('index',{ message })
-        }  
-
         }
+    }                 
+}
 
-      
-                
-    }
+/*=================================================================
+                SIGIN POST /signin
+==================================================================*/
 }
 
 export default new UserController();    
